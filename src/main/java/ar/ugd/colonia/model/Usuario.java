@@ -4,6 +4,8 @@
  */
 package ar.ugd.colonia.model;
 
+import java.util.Objects;
+
 /**
  *
  * @author Gonza

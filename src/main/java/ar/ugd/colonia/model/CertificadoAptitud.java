@@ -3,8 +3,8 @@ package ar.ugd.colonia.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- * Certificado de aptitud para adopción emitido por el veterinario.
+/*
+ Certificado de aptitud para adopción emitido por el veterinario.
  */
 public class CertificadoAptitud {
     private int idCertificadoDeAdopcion;
