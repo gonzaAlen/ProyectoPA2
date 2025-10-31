@@ -1,36 +1,51 @@
 package ar.ugd.colonia.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-/*
- Certificado de aptitud para adopción emitido por el veterinario.
+/**
+ * Certifica que un gato se encuentra en condiciones aptas
+ * para adopción o tránsito, a partir de un diagnóstico.
  */
+@Entity
+@Table(name = "certificado_aptitud")
 public class CertificadoAptitud {
-    private int idCertificadoDeAdopcion;
-    private LocalDate fecha;
-    private LocalTime hora;
-    private String detalleDiagnostico;
 
-    private Veterinario veterinario;
-    private Gato gato;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCertificado;
 
+    @Column(length = 255)
+    private String observaciones;
+
+    @Column(nullable = false)
+    private LocalDate fechaEmision;
+
+    // === Relaciones ===
+    @ManyToOne
+    @JoinColumn(name = "idDiagnostico")
+    private DiagnosticoYTratamiento diagnostico;
+
+    // === Constructores ===
     public CertificadoAptitud() {}
 
-    public void emitirCertificado() { /* generar/firmar en otra capa */ }
-    public CertificadoAptitud getCertificado() { return this; }
+    public CertificadoAptitud(String observaciones, LocalDate fechaEmision,
+                              DiagnosticoYTratamiento diagnostico) {
+        this.observaciones = observaciones;
+        this.fechaEmision = fechaEmision;
+        this.diagnostico = diagnostico;
+    }
 
-    // Getters/Setters
-    public int getIdCertificadoDeAdopcion() { return idCertificadoDeAdopcion; }
-    public void setIdCertificadoDeAdopcion(int id) { this.idCertificadoDeAdopcion = id; }
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
-    public LocalTime getHora() { return hora; }
-    public void setHora(LocalTime hora) { this.hora = hora; }
-    public String getDetalleDiagnostico() { return detalleDiagnostico; }
-    public void setDetalleDiagnostico(String detalleDiagnostico) { this.detalleDiagnostico = detalleDiagnostico; }
-    public Veterinario getVeterinario() { return veterinario; }
-    public void setVeterinario(Veterinario veterinario) { this.veterinario = veterinario; }
-    public Gato getGato() { return gato; }
-    public void setGato(Gato gato) { this.gato = gato; }
+    // === Getters/Setters ===
+    public Integer getIdCertificado() { return idCertificado; }
+    public void setIdCertificado(Integer idCertificado) { this.idCertificado = idCertificado; }
+
+    public String getObservaciones() { return observaciones; }
+    public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
+
+    public LocalDate getFechaEmision() { return fechaEmision; }
+    public void setFechaEmision(LocalDate fechaEmision) { this.fechaEmision = fechaEmision; }
+
+    public DiagnosticoYTratamiento getDiagnostico() { return diagnostico; }
+    public void setDiagnostico(DiagnosticoYTratamiento diagnostico) { this.diagnostico = diagnostico; }
 }

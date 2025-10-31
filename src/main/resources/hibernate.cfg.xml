@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Configuración de conexión -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/colonia?createDatabaseIfNotExist=true&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Gonzi_060</property>
+
+        <!-- Dialecto y comportamiento -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- ======= MAPEOS ======= -->
+        <mapping class="ar.ugd.colonia.model.Usuario"/>
+        <mapping class="ar.ugd.colonia.model.Voluntario"/>
+        <mapping class="ar.ugd.colonia.model.FamiliaAdoptante"/>
+        <mapping class="ar.ugd.colonia.model.Veterinario"/>
+        <mapping class="ar.ugd.colonia.model.Administrador"/>
+        <mapping class="ar.ugd.colonia.model.Gato"/>
+        <mapping class="ar.ugd.colonia.model.Tarea"/>
+        <mapping class="ar.ugd.colonia.model.Visita"/>
+        <mapping class="ar.ugd.colonia.model.RegistroAvistamiento"/>
+        <mapping class="ar.ugd.colonia.model.RegistroAdopcionesTransitos"/>
+        <mapping class="ar.ugd.colonia.model.Estudio"/>
+        <mapping class="ar.ugd.colonia.model.DiagnosticoYTratamiento"/>
+        <mapping class="ar.ugd.colonia.model.CertificadoAptitud"/>
+        <mapping class="ar.ugd.colonia.model.Reporte"/>
+        <mapping class="ar.ugd.colonia.model.ReporteDeGatos"/>
+        <mapping class="ar.ugd.colonia.model.ReportePorZona"/>
+
+    </session-factory>
+</hibernate-configuration>

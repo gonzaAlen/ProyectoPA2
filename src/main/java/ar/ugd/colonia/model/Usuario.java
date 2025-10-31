@@ -1,49 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ar.ugd.colonia.model;
 
-import java.util.Objects;
+import jakarta.persistence.*;
 
 /**
- *
- * @author Gonza
+ * Clase base para todos los tipos de usuario.
+ * Hibernate creará una tabla 'usuario' y permitirá heredar columnas en subclases.
  */
+@Entity
+@Table(name = "usuario")
+@Inheritance(strategy = InheritanceType.JOINED) // cada subclase tendrá su propia tabla con FK al usuario
 public class Usuario {
-    // Atributos del diagrama 
-    private int idUsuario;
-    private String nombre;
-    private String contrasena;
-    private String rol; // por ahora texto; más adelante puede ser que usemos enum
 
-    // Constructores 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idUsuario;
+
+    @Column(length = 80, nullable = false)
+    private String nombre;
+
+    @Column(length = 120, nullable = false)
+    private String contrasena;
+
+    @Column(length = 20, nullable = false)
+    private String rol;
+
+    // === Constructores ===
     public Usuario() {}
-    public Usuario(int idUsuario, String nombre, String contrasena, String rol) {
-        this.idUsuario = idUsuario;
+
+    public Usuario(String nombre, String contrasena, String rol) {
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.rol = rol;
     }
 
-    // Métodos del diagrama (stubs)
-    //Inicia sesión validando credenciales. Aquí solo es un stub. 
-    public boolean iniciarSesion(int idUsuario, String contrasena) {
-        return this.idUsuario == idUsuario && Objects.equals(this.contrasena, contrasena);
-    }
-    // Cierra sesión. En POO simple no hace nada; se completa en capa de control.
-    public void cerrarSesion() {  }
-    
-    // Devuelve una referencia a sí mismo (con el metodo getUsuario). 
-    public Usuario getUsuario() { return this; }
-
     // === Getters/Setters ===
-    public int getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
+    public Integer getIdUsuario() { return idUsuario; }
+    public void setIdUsuario(Integer idUsuario) { this.idUsuario = idUsuario; }
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
     public String getContrasena() { return contrasena; }
     public void setContrasena(String contrasena) { this.contrasena = contrasena; }
+
     public String getRol() { return rol; }
-    public void setRol(String rol) { this.rol = rol;}
+    public void setRol(String rol) { this.rol = rol; }
 }

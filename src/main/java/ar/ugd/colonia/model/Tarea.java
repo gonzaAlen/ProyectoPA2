@@ -1,45 +1,73 @@
 package ar.ugd.colonia.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
- * Representa una tarea realizada por un voluntario para un gato.
- * El tipo se modela como texto por ahora (ALIMENTACION, CAPTURA, CONTROL, TRANSPORTE).
+ * Representa una tarea asignada a un voluntario sobre un gato.
+ * Ejemplo: “Revisar estado de salud”, “Llevar al veterinario”, etc.
  */
+@Entity
+@Table(name = "tarea")
 public class Tarea {
-    private int idTarea;
-    private String tipoTarea;     // luego puede ser enum
-    private LocalDate fecha;
-    private LocalTime hora;
-    private String ubicacion;
-    private String estado;        // PENDIENTE, HECHA, CANCELADA
 
-    // Relaciones lógicas (referencias) para futura integración
-    private Voluntario voluntario; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTarea;
+
+    @Column(length = 100, nullable = false)
+    private String descripcion;
+
+    @Column(length = 30, nullable = false)
+    private String tipo;
+
+    @Column(length = 20, nullable = false)
+    private String estado;
+
+    @Column(nullable = false)
+    private LocalDate fechaAsignacion;
+
+    // === Relaciones ===
+    @ManyToOne
+    @JoinColumn(name = "idVoluntario")
+    private Voluntario voluntario;
+
+    @ManyToOne
+    @JoinColumn(name = "idGato")
     private Gato gato;
 
+    // === Constructores ===
     public Tarea() {}
 
-    public void agregarTarea() { /* persistencia en capa DAO */ }
-    public void actualizarTarea() { /* persistencia en capa DAO */ }
-    public Tarea getTarea() { return this; }
+    public Tarea(String descripcion, String tipo, String estado,
+                 LocalDate fechaAsignacion, Voluntario voluntario, Gato gato) {
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.estado = estado;
+        this.fechaAsignacion = fechaAsignacion;
+        this.voluntario = voluntario;
+        this.gato = gato;
+    }
 
-    // Getters/Setters
-    public int getIdTarea() { return idTarea; }
-    public void setIdTarea(int idTarea) { this.idTarea = idTarea; }
-    public String getTipoTarea() { return tipoTarea; }
-    public void setTipoTarea(String tipoTarea) { this.tipoTarea = tipoTarea; }
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
-    public LocalTime getHora() { return hora; }
-    public void setHora(LocalTime hora) { this.hora = hora; }
-    public String getUbicacion() { return ubicacion; }
-    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
+    // === Getters/Setters ===
+    public Integer getIdTarea() { return idTarea; }
+    public void setIdTarea(Integer idTarea) { this.idTarea = idTarea; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+
+    public LocalDate getFechaAsignacion() { return fechaAsignacion; }
+    public void setFechaAsignacion(LocalDate fechaAsignacion) { this.fechaAsignacion = fechaAsignacion; }
+
     public Voluntario getVoluntario() { return voluntario; }
     public void setVoluntario(Voluntario voluntario) { this.voluntario = voluntario; }
+
     public Gato getGato() { return gato; }
     public void setGato(Gato gato) { this.gato = gato; }
 }

@@ -1,18 +1,42 @@
 package ar.ugd.colonia.model;
 
-/** Reporte global: esterilizados, adoptados y en tránsito. */
+import jakarta.persistence.*;
+
+/**
+ * Reporte con información detallada sobre un gato específico.
+ */
+@Entity
+@Table(name = "reporte_de_gatos")
+@PrimaryKeyJoinColumn(name = "idReporte")
 public class ReporteDeGatos extends Reporte {
-    private int cantidadDeGatosEsterilizados;
-    private int cantidadDeGatosAdoptados;
-    private int cantidadDeGatosEnTransito;
 
-    public void generarReporteDeGatos() { /* cálculo en service */ }
+    @Column(length = 255)
+    private String observacionesGenerales;
 
-    // Getters/Setters
-    public int getCantidadDeGatosEsterilizados() { return cantidadDeGatosEsterilizados; }
-    public void setCantidadDeGatosEsterilizados(int v) { this.cantidadDeGatosEsterilizados = v; }
-    public int getCantidadDeGatosAdoptados() { return cantidadDeGatosAdoptados; }
-    public void setCantidadDeGatosAdoptados(int v) { this.cantidadDeGatosAdoptados = v; }
-    public int getCantidadDeGatosEnTransito() { return cantidadDeGatosEnTransito; }
-    public void setCantidadDeGatosEnTransito(int v) { this.cantidadDeGatosEnTransito = v; }
+    private Integer totalGatos;
+
+    // === Relaciones ===
+    @ManyToOne
+    @JoinColumn(name = "idGato")
+    private Gato gato;
+
+    public ReporteDeGatos() {}
+
+    public ReporteDeGatos(String titulo, String descripcion,
+                          String observacionesGenerales, Integer totalGatos, Gato gato) {
+        super(titulo, java.time.LocalDate.now(), descripcion);
+        this.observacionesGenerales = observacionesGenerales;
+        this.totalGatos = totalGatos;
+        this.gato = gato;
+    }
+
+    // === Getters/Setters ===
+    public String getObservacionesGenerales() { return observacionesGenerales; }
+    public void setObservacionesGenerales(String observacionesGenerales) { this.observacionesGenerales = observacionesGenerales; }
+
+    public Integer getTotalGatos() { return totalGatos; }
+    public void setTotalGatos(Integer totalGatos) { this.totalGatos = totalGatos; }
+
+    public Gato getGato() { return gato; }
+    public void setGato(Gato gato) { this.gato = gato; }
 }

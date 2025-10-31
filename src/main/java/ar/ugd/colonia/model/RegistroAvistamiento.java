@@ -1,42 +1,68 @@
 package ar.ugd.colonia.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
- * Avistamiento de un gato en la vía pública con ubicación y notas.
+ * Registra un avistamiento de un gato en la vía pública.
+ * Puede o no estar asociado a una tarea o voluntario específico.
  */
+@Entity
+@Table(name = "registro_avistamiento")
 public class RegistroAvistamiento {
-    private int idAvistamiento;
-    private LocalDate fecha;
-    private LocalTime hora;
-    private String color;
-    private String tamano;
-    private String observaciones;
-    private String coordenadas;   // lat,long en texto
 
-    private Voluntario voluntario;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idAvistamiento;
+
+    @Column(nullable = false)
+    private LocalDate fecha;
+
+    @Column(length = 255)
+    private String ubicacion;
+
+    @Column(length = 255)
+    private String descripcion;
+
+    @Column(length = 100)
+    private String estadoDelGato; // "Herido", "Sano", "Desnutrido", etc.
+
+    // === Relaciones ===
+
+    @ManyToOne
+    @JoinColumn(name = "idVoluntario")
+    private Voluntario voluntario; // quien registró el avistamiento
+
+
 
     public RegistroAvistamiento() {}
 
-    public void crearAvistamiento() { /* persistencia */ }
-    public RegistroAvistamiento getAvistamiento() { return this; }
+    public RegistroAvistamiento(LocalDate fecha, String ubicacion, String descripcion,
+                                String estadoDelGato, Voluntario voluntario, Gato gato) {
+        this.fecha = fecha;
+        this.ubicacion = ubicacion;
+        this.descripcion = descripcion;
+        this.estadoDelGato = estadoDelGato;
+        this.voluntario = voluntario;
+    }
 
-    // Getters/Setters
-    public int getIdAvistamiento() { return idAvistamiento; }
-    public void setIdAvistamiento(int idAvistamiento) { this.idAvistamiento = idAvistamiento; }
+    // === Getters/Setters ===
+    public Integer getIdAvistamiento() { return idAvistamiento; }
+    public void setIdAvistamiento(Integer idAvistamiento) { this.idAvistamiento = idAvistamiento; }
+
     public LocalDate getFecha() { return fecha; }
     public void setFecha(LocalDate fecha) { this.fecha = fecha; }
-    public LocalTime getHora() { return hora; }
-    public void setHora(LocalTime hora) { this.hora = hora; }
-    public String getColor() { return color; }
-    public void setColor(String color) { this.color = color; }
-    public String getTamano() { return tamano; }
-    public void setTamano(String tamano) { this.tamano = tamano; }
-    public String getObservaciones() { return observaciones; }
-    public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
-    public String getCoordenadas() { return coordenadas; }
-    public void setCoordenadas(String coordenadas) { this.coordenadas = coordenadas; }
+
+    public String getUbicacion() { return ubicacion; }
+    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public String getEstadoDelGato() { return estadoDelGato; }
+    public void setEstadoDelGato(String estadoDelGato) { this.estadoDelGato = estadoDelGato; }
+
     public Voluntario getVoluntario() { return voluntario; }
     public void setVoluntario(Voluntario voluntario) { this.voluntario = voluntario; }
+
 }

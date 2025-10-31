@@ -1,24 +1,57 @@
 package ar.ugd.colonia.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 /**
- * Clase base de reportes con fecha y hora.
- * Las subclases agregan métricas específicas.
+ * Clase base para los reportes generados en el sistema.
+ * Puede ser compartido entre varios administradores.
  */
+@Entity
+@Table(name = "reporte")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Reporte {
-    private int idReporte;
-    private LocalDate fecha;
-    private LocalTime hora;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idReporte;
+
+    @Column(length = 100, nullable = false)
+    private String titulo;
+
+    @Column(nullable = false)
+    private LocalDate fechaEmision;
+
+    @Column(length = 255)
+    private String descripcion;
+
+    // === Relaciones ===
+    @ManyToMany(mappedBy = "reportes")
+    private List<Administrador> administradores;
+
+    // === Constructores ===
     public Reporte() {}
 
-    // Getters/Setters
-    public int getIdReporte() { return idReporte; }
-    public void setIdReporte(int idReporte) { this.idReporte = idReporte; }
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
-    public LocalTime getHora() { return hora; }
-    public void setHora(LocalTime hora) { this.hora = hora; }
+    public Reporte(String titulo, LocalDate fechaEmision, String descripcion) {
+        this.titulo = titulo;
+        this.fechaEmision = fechaEmision;
+        this.descripcion = descripcion;
+    }
+
+    // === Getters/Setters ===
+    public Integer getIdReporte() { return idReporte; }
+    public void setIdReporte(Integer idReporte) { this.idReporte = idReporte; }
+
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+
+    public LocalDate getFechaEmision() { return fechaEmision; }
+    public void setFechaEmision(LocalDate fechaEmision) { this.fechaEmision = fechaEmision; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public List<Administrador> getAdministradores() { return administradores; }
+    public void setAdministradores(List<Administrador> administradores) { this.administradores = administradores; }
 }
