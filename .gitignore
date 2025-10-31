@@ -1,19 +1,42 @@
-# Carpetas de compilación
+# =====================
+# Maven build folders
+# =====================
 target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
 
-# Archivos de NetBeans o IDEs
-nbproject/private/
-.idea/
-*.iml
-*.log
-
-# Archivos temporales
-*.class
-*.tmp
-*.bak
-.DS_Store
-
-# Configuración de sistema
-.settings/
+# =====================
+# Eclipse / NetBeans / VSCode
+# =====================
 .classpath
 .project
+.settings/
+.nbproject/private/
+.vscode/
+
+# =====================
+# Java compiled files
+# =====================
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# =====================
+# OS generated files
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Backup / temp files
+# =====================
+*.tmp
+*.bak
+*.swp
+~$*
