@@ -104,4 +104,6 @@ public class Gato {
 
     public List<Visita> getVisitas() { return visitas; }
     public void setVisitas(List<Visita> visitas) { this.visitas = visitas; }
+
+    
 }
