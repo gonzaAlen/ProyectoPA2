@@ -1,4 +1,4 @@
-package ar.ugd.colonia.repository;
+package ar.ugd.colonia.dao;
 import java.util.List;
 
 public interface CrudRepository<T, ID> {

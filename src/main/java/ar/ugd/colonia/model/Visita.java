@@ -24,11 +24,11 @@ public class Visita {
     @Column(length = 30)
     private String tipo; // "ADOPCION", "TRANSITO", "CONTROL", etc.
 
-    // === Relaciones ===
+    @Column(length = 100)
+    private String responsable;
 
-    @ManyToOne
-    @JoinColumn(name = "idVoluntario")
-    private Voluntario voluntario;
+
+    // === Relaciones ===
 
     @ManyToOne
     @JoinColumn(name = "idFamilia")
@@ -45,7 +45,6 @@ public class Visita {
         this.fecha = fecha;
         this.observaciones = observaciones;
         this.tipo = tipo;
-        this.voluntario = voluntario;
         this.familia = familia;
         this.gato = gato;
     }
@@ -62,9 +61,6 @@ public class Visita {
 
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
-
-    public Voluntario getVoluntario() { return voluntario; }
-    public void setVoluntario(Voluntario voluntario) { this.voluntario = voluntario; }
 
     public FamiliaAdoptante getFamilia() { return familia; }
     public void setFamilia(FamiliaAdoptante familia) { this.familia = familia; }

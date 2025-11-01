@@ -1,7 +1,7 @@
-package ar.ugd.colonia.repository.impl;
+package ar.ugd.colonia.dao.impl;
 
+import ar.ugd.colonia.dao.VoluntarioRepository;
 import ar.ugd.colonia.model.Voluntario;
-import ar.ugd.colonia.repository.VoluntarioRepository;
 import ar.ugd.colonia.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

@@ -1,8 +1,8 @@
 package ar.ugd.colonia.service.impl;
 
+import ar.ugd.colonia.dao.VoluntarioRepository;
+import ar.ugd.colonia.dao.impl.VoluntarioRepositoryHibernate;
 import ar.ugd.colonia.model.Voluntario;
-import ar.ugd.colonia.repository.VoluntarioRepository;
-import ar.ugd.colonia.repository.impl.VoluntarioRepositoryHibernate;
 import ar.ugd.colonia.service.VoluntarioService;
 import java.util.List;
 
